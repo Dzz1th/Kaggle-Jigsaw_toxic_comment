@@ -87,8 +87,8 @@ def check_coverage(vocab , embedding_index):
             unknown_words[word] = vocab[word]
             num_unknown_words += vocab[word]
             pass
-    print('Found embedding for {:.%3} of vocabulary'.format(len(known_words) /len(vocab)))
-    print('Found embedding for {:.%3} of text'.format(num_known_words / num_known_words + num_unknown_words))
+    print('Found embedding for {:.2%} of vocabulary'.format(len(known_words) /len(vocab)))
+    print('Found embedding for {:.2%} of text'.format(num_known_words /(num_known_words + num_unknown_words)))
     unknown_words = sorted(unknown_words.items(), key=operator.itemgetter(1))[::-1]
     return unknown_words
 
@@ -188,7 +188,7 @@ TRAIN_PATH = 'c:/Data/data/train.csv'
 
 test = pd.read_csv(TEST_PATH , index_col='id')
 train = pd.read_csv(TRAIN_PATH , index_col='id')
-EMB_PATH = 'c:/Data/data/crawl.vec'
+EMB_PATH = 'c:/Data/data/glove.txt'
 
 emb_index = load_embedding(EMB_PATH)
 vocab = make_vocabulary(train['comment_text'])
@@ -211,4 +211,3 @@ tokenizer = Tokenizer(num_words=MAX_FEATURES)
 tokenizer.fit_on_texts(list(train))
 train = tokenizer.texts_to_sequences(train)
 test = tokenizer.texts_to_sequences(test)
-print(train)
